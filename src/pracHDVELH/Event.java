@@ -16,7 +16,49 @@ import myUtils.ErrorNaiveHandler;
 public class Event extends NodeMultiple {
 	public static final String ERROR_MSG_UNEXPECTED_END = "Sorry, for some unexpected reason the story ends here...";
 	public static final String PROMPT_ANSWER = "Answer: ";
-	public static final String WARNING_MSG_INTEGER_EXPECTED = "Please input a integer within range!";
+	public static final String WARNING_MSG_INTEGER_EXPECTED = "Please input an integer within range!";
+
+	/* FIELDS */
+	private String playerAnswer;
+	private GUIManager gui;
+	private Scanner reader;
+	private int chosenPath;
+	private int id;
+
+	static private int lastId = -1;
+
+	/* CONSTRUCTOR */
+
+	public Event() {
+		this(new GUIManager(), null);
+	}
+
+	/**
+	 *
+	 * @param gui
+	 * @param data
+	 */
+	public Event(GUIManager gui, String data) {
+		super(data);
+		chosenPath = -1;
+		this.gui = gui;
+		this.reader = gui.getInputReader();
+		id = ++lastId;
+	}
+
+
+	public Event run() {
+		gui.outputln(getData());
+		gui.output(PROMPT_ANSWER);
+		playerAnswer = reader.next();
+		chosenPath = interpretAnswer();
+		return getDaughter(chosenPath);
+	}
+
+
+	public int interpretAnswer(){
+
+	}
 
 	/**
 	 * @return the playerAnswer
