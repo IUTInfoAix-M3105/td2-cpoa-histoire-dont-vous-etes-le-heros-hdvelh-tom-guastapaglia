@@ -57,14 +57,22 @@ public class Event extends NodeMultiple {
 
 
 	public int interpretAnswer(){
+		if (playerAnswer == null) {
+			ErrorNaiveHandler.abort();
+		}
 
+		while (playerAnswer.isEmpty() || !playerAnswer.matches("[0-9]]") || !isInRange(Integer.parseInt(playerAnswer) -1)){
+			gui.outputln(WARNING_MSG_INTEGER_EXPECTED);
+			gui.output(PROMPT_ANSWER);
+			playerAnswer = reader.next();
+		}
+		return Integer.parseInt(playerAnswer) - 1;
 	}
 
 	/**
 	 * @return the playerAnswer
 	 */
 	public String getPlayerAnswer() {
-		/* TO BE COMPLETED */
 	}
 
 	/**
@@ -78,7 +86,6 @@ public class Event extends NodeMultiple {
 	 * @return the reader
 	 */
 	public Scanner getReader() {
-		/* TO BE COMPLETED */
 	}
 
 	/**
